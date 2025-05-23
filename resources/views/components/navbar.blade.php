@@ -3,7 +3,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                logo
+                <img src="{{ asset('images/logo.png') }}" alt="">
             </div>
             
             <!-- Botón hamburguesa -->
