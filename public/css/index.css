@@ -5,7 +5,7 @@
     left: 0;
     width: 100%;
     height: 100vh;
-    z-index: 500; /* Debajo del navbar que tiene z-index: 1000 */
+    z-index: 1;
     transition: opacity 0.5s ease-out;
 }
 
@@ -29,10 +29,19 @@
 }
 
 .modified-image {
+    filter: blur(2px); /* Efecto de desenfoque moderado */
+    transform: scale(1.02); /* Compensación para evitar bordes difusos */
+    transition: filter 0.5s ease; /* Transición suave para cambios */
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
+}
+
+
+.image-container {
+    transform: translateZ(0); /* Aceleración hardware */
+    backface-visibility: hidden; /* Optimización para WebKit */
 }
 
 /* Contenedor de texto superpuesto */
@@ -48,12 +57,15 @@
 
 /* Estilos para el texto principal */
 .main-text {
-    font-size: 4rem;
-    font-weight: bold;
+    font-size: 4.5rem;
+    font-weight: 800;
     margin-bottom: 1rem;
     opacity: 1;
     transition: opacity 1s ease-in-out;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8);
+    color: white;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
 }
 
 .main-text.fade-out {
@@ -66,16 +78,18 @@
 
 /* Estilos para el texto secundario */
 .secondary-text {
-    font-size: 2rem;
-    font-weight: 300;
+    font-size: 2.3rem;
+    font-weight: 400;
     opacity: 0;
     transition: opacity 1s ease-in-out;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
     position: absolute;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
     white-space: nowrap;
+    color: white;
+    letter-spacing: 0.01em;
 }
 
 .secondary-text.fade-in {
@@ -88,44 +102,50 @@
 
 /* Contenido que aparece después de las animaciones */
 .content-after {
-    margin-top: 200vh; /* Aumentar el margen para dar más espacio a la animación */
+    margin-top: 2400px;
     padding: 2rem;
-    background-color: white;
+    background: linear-gradient(135deg, #FBFBF8 0%, #E6E6E6 100%);
     position: relative;
-    z-index: 100; /* Por debajo del navbar */
-    min-height: 200vh; /* Más contenido para hacer scroll */
-    padding-top: 80px; /* Espacio para el navbar fixed */
+    z-index: 1002;
+    min-height: 200vh;
+    padding-top: 80px;
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+}
+
+.content-after.visible {
+    opacity: 1;
 }
 
 /* Estilos responsivos */
 @media (max-width: 768px) {
     .main-text {
-        font-size: 2.5rem;
+        font-size: 3.2rem;
     }
     
     .secondary-text {
-        font-size: 1.5rem;
+        font-size: 1.9rem;
     }
 }
 
 @media (max-width: 480px) {
     .main-text {
-        font-size: 2rem;
+        font-size: 2.8rem;
     }
     
     .secondary-text {
-        font-size: 1.2rem;
+        font-size: 1.6rem;
     }
 }
 
-/* Estilos adicionales para asegurar compatibilidad con navbar */
-
-/* Compensar el navbar fixed */
+/* Estilos adicionales */
 body {
-    padding-top: 80px; /* Espacio para el navbar fixed */
+    min-height: 300vh;
+    padding-top: 80px;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Overlay oscuro para mejorar la legibilidad del texto */
+/* Overlay mejorado */
 .image-container::before {
     content: '';
     position: absolute;
@@ -133,21 +153,20 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(44, 168, 128, 0.2) 100%);
     z-index: 5;
 }
 
-/* Asegurar que el navbar siempre esté visible */
+/* Navbar original - NO MODIFICAR */
 .navbar {
-    position: fixed !important; /* Cambiar de sticky a fixed */
+    position: fixed !important;
     top: 0 !important;
     left: 0 !important;
     right: 0 !important;
-    z-index: 1001 !important; /* Asegurar que esté por encima de todo */
+    z-index: 1000 !important;
     background: linear-gradient(135deg, #2ca880 0%, #59BA9D 100%) !important;
 }
 
-/* Eliminar los estados de animación del navbar */
 .navbar.animation-mode {
     opacity: 1 !important;
     transform: translateY(0) !important;
@@ -158,4 +177,312 @@ body {
     opacity: 1 !important;
     transform: translateY(0) !important;
     pointer-events: auto !important;
+}
+
+/* Sección introductoria mejorada */
+.intro-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 6rem;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.feature-card:hover::before {
+    left: 100%;
+}
+
+.feature-card:hover {
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.icon-container {
+    color: #2ca880;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.feature-title {
+    font-size: 2.2rem;
+    color: #1a202c;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: -0.01em;
+}
+
+.feature-text {
+    color: #4a5568;
+    line-height: 1.8;
+    font-size: 1.25rem;
+    text-align: center;
+}
+
+/* Badges tecnológicos mejorados */
+.tech-badge {
+    background: linear-gradient(135deg, #FBFBF8 0%, #E6E6E6 100%);
+    padding: 2rem;
+    border-radius: 15px;
+    border-left: 4px solid #2ca880;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.tech-badge:hover {
+    transform: translateX(10px);
+    box-shadow: 0 10px 25px rgba(44, 168, 128, 0.1);
+}
+
+.tech-badge h4 {
+    color: #2ca880;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.tech-badge ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.tech-badge li {
+    color: #4a5568;
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.tech-badge li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #2ca880;
+    font-weight: bold;
+}
+
+/* Animaciones personalizadas */
+.fade-in-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.fade-in-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.active {
+    opacity: 1;
+    transform: translate(0);
+}
+
+/* CTA mejorado */
+.cta-container {
+    text-align: center;
+    padding: 4rem;
+    background: linear-gradient(135deg, #2ca880 0%, #59BA9D 100%);
+    border-radius: 25px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.cta-title {
+    font-size: 3.2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+    letter-spacing: -0.02em;
+}
+
+.cta-text {
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+    position: relative;
+    z-index: 1;
+    line-height: 1.6;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 1.2rem 3rem;
+    background: white;
+    color: #2ca880;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.cta-button i {
+    margin-left: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.cta-button:hover i {
+    transform: translateX(8px);
+}
+
+/* Estadísticas visuales */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.stat-number {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #2ca880;
+    display: block;
+    letter-spacing: -0.02em;
+}
+
+.stat-label {
+    font-size: 1.1rem;
+    color: #4a5568;
+    margin-top: 0.5rem;
+    font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .cta-title {
+        font-size: 2.6rem;
+    }
+    
+    .cta-text {
+        font-size: 1.2rem;
+    }
+    
+    .feature-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .feature-card {
+        padding: 2rem;
+    }
+    
+    .feature-title {
+        font-size: 1.9rem;
+    }
+    
+    .feature-text {
+        font-size: 1.1rem;
+    }
+    
+    .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .stat-number {
+        font-size: 2.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .tech-badge {
+        padding: 1.5rem;
+    }
+    
+    .tech-badge h4 {
+        font-size: 1.3rem;
+    }
+    
+    .tech-badge li {
+        font-size: 1rem;
+    }
+    
+    .cta-title {
+        font-size: 2.2rem;
+    }
+    
+    .feature-title {
+        font-size: 1.7rem;
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+    }
 }

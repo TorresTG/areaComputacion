@@ -6,14 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const navbar = document.querySelector('.navbar');
     
     // Asegurar que el navbar esté siempre visible
-    if (navbar) {
-        navbar.style.position = 'fixed';
-        navbar.style.top = '0';
-        navbar.style.zIndex = '1001';
-        navbar.style.opacity = '1';
-        navbar.style.transform = 'translateY(0)';
-        navbar.style.pointerEvents = 'auto';
-    }
+    
     
     let currentPhase = 0; // 0: inicial, 1: main fade out, 2: secondary fade in, 3: secondary fade out, 4: container fade out
     let isScrollingUp = false;
@@ -46,6 +39,12 @@ document.addEventListener('DOMContentLoaded', function() {
             currentPhase = 4;
         }
         
+        if (scrollY >= CONTENT_START) {
+            contentAfter.classList.add('visible');
+        } else {
+            contentAfter.classList.remove('visible');
+        }
+    
         // Solo aplicar cambios si la fase ha cambiado
         if (previousPhase !== currentPhase) {
             applyPhaseStyles(currentPhase, previousPhase);
@@ -60,10 +59,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         switch(phase) {
             case 0: // Estado inicial - todo visible
-                parallaxContainer.style.display = 'fixed';
-                parallaxContainer.classList.add('fade-in');
-                mainText.classList.add('fade-in');
-                break;
+    // parallaxContainer.style.display = 'fixed'; // Eliminar esta línea
+            parallaxContainer.classList.add('fade-in');
+            mainText.classList.add('fade-in');
+            break;
                 
             case 1: // Desvanecer texto principal
                 mainText.classList.add('fade-out');
@@ -99,7 +98,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Si estamos en la fase final y hacemos scroll hacia arriba, volver a mostrar
         if (currentPhase === 4 && isScrollingUp && scrollY < ANIMATION_END) {
-            parallaxContainer.style.display = 'fixed';
+            // parallaxContainer.style.display = 'fixed'; // Eliminar esta línea
+            parallaxContainer.classList.add('fade-in');
         }
     }
     
@@ -160,5 +160,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Prevenir comportamientos extraños al cargar la página
     window.addEventListener('beforeunload', function() {
         window.scrollTo(0, 0);
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in-up').forEach(element => {
+        observer.observe(element);
     });
 });

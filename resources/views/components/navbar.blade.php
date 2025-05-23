@@ -14,9 +14,9 @@
             </button>
             
             <ul class="nav-links">
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#nosotros">Nosotros</a></li>
-                <li><a href="#contactanos">Contáctanos</a></li>
+                <li><a href="{{ route('home') }}">Inicio</a></li>
+                <li><a href="{{route('nosotros') }}">Nosotros</a></li>
+                <li><a href="{{route('contacto') }}">Contáctanos</a></li>
             </ul>
         </div>
     </nav>
