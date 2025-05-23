@@ -1,0 +1,162 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #FBFBF8 0%, #E6E6E6 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* NAVBAR STYLES */
+.navbar {
+    background: linear-gradient(135deg, #2ca880 0%, #59BA9D 100%);
+    padding: 1rem 2rem;
+    box-shadow: 0 4px 20px rgba(44, 168, 128, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    background: #FBFBF8;
+    color: #2ca880;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-links li {
+    position: relative;
+}
+
+.nav-links a {
+    color: #FBFBF8;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* MAIN CONTENT */
+.main-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.content-placeholder {
+    background: rgba(44, 168, 128, 0.1);
+    border: 2px dashed #2ca880;
+    border-radius: 15px;
+    padding: 3rem;
+    text-align: center;
+    color: #2ca880;
+    font-size: 1.2rem;
+    max-width: 600px;
+}
+
+/* Agrega estos estilos al final de tu CSS */
+/* Hamburger Menu */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 10px;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #FBFBF8;
+    transition: all 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+    
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+    
+    .nav-links {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        gap: 0;
+        flex-direction: column;
+        background: linear-gradient(135deg, #2ca880 0%, #59BA9D 100%);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        padding: 1rem 0;
+        box-shadow: 0 4px 20px rgba(44, 168, 128, 0.3);
+    }
+    
+    .nav-links.active {
+        left: 0;
+    }
+    
+    .nav-links li {
+        margin: 16px 0;
+    }
+    
+    .nav-links a {
+        padding: 1rem;
+        display: block;
+    }
+}
+
+/* Ajustes para móviles más pequeños */
+@media (max-width: 480px) {
+    .navbar {
+        padding: 1rem;
+    }
+    
+    .logo {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+    }
+}
